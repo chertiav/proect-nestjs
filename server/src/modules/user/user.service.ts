@@ -21,4 +21,12 @@ export class UserService {
 		await this.userRepository.create({ ...dto });
 		return dto;
 	}
+
+	async publicUser(email: string) {
+		return this.userRepository.findOne({
+			where: { email },
+			attributes: { exclude: ['password'] },
+			raw: true,
+		});
+	}
 }
