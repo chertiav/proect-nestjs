@@ -1,5 +1,6 @@
-import { Body, Controller, Post } from '@nestjs/common';
+import { Body, Controller, Post, UseGuards } from '@nestjs/common';
 import { ApiResponse, ApiTags } from '@nestjs/swagger';
+import { JwtAuthGuard } from 'src/guards/jwt-guard';
 import { CreateUserDTO } from '../user/dto';
 import { AuthService } from './auth.service';
 import { UserLoginDTO } from './dto';
@@ -21,5 +22,11 @@ export class AuthController {
 	@Post('login')
 	login(@Body() dto: UserLoginDTO): Promise<AuthUserResponse> {
 		return this.authService.loginUser(dto);
+	}
+
+	@UseGuards(JwtAuthGuard)
+	@Post('test')
+	test() {
+		return true;
 	}
 }
