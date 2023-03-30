@@ -11,13 +11,13 @@ module.exports = {
 		'plugin:prettier/recommended',
 	],
 	root: true,
-	indent: ['error', 'tab'],
 	env: {
 		node: true,
 		jest: true,
 	},
 	ignorePatterns: ['.eslintrc.js'],
 	rules: {
+		indent: ['off'],
 		'@typescript-eslint/interface-name-prefix': 'off',
 		'@typescript-eslint/explicit-function-return-type': 'off',
 		'@typescript-eslint/explicit-module-boundary-types': 'off',
