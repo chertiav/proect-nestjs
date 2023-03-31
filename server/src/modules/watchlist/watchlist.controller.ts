@@ -24,18 +24,10 @@ export class WatchlistController {
 		return this.watchListService.createAsset(user, assetDto);
 	}
 
-	@Get('get-all')
-	getAllAssets() {
-		return;
-	}
-
-	@Patch('update')
-	updateAssset() {
-		return;
-	}
-
 	@Delete()
-	deleteAsset(@Query('id') id: string) {
-		return;
+	deleteAsset(@Query('id') assetId: string, @Req() request): Promise<boolean> {
+		const { id: userId } = request.query;
+
+		return this.watchListService.deleteAsset(userId, assetId);
 	}
 }
