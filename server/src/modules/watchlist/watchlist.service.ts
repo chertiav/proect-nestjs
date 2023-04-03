@@ -7,7 +7,7 @@ import { CreateAssetResponse } from './response';
 export class WatchlistService {
 	constructor(
 		@InjectModel(Watchlist)
-		private readonly watctListRepoository: typeof Watchlist,
+		private readonly watchListRepository: typeof Watchlist,
 	) {}
 
 	async createAsset(user, dto): Promise<CreateAssetResponse> {
@@ -17,7 +17,7 @@ export class WatchlistService {
 				name: dto.name,
 				assetId: dto.assetId,
 			};
-			await this.watctListRepoository.create(watchlist);
+			await this.watchListRepository.create(watchlist);
 			return watchlist;
 		} catch (error) {
 			throw new Error(error);
@@ -26,7 +26,7 @@ export class WatchlistService {
 
 	async deleteAsset(userId: number, assetId: string): Promise<boolean> {
 		try {
-			await this.watctListRepoository.destroy({
+			await this.watchListRepository.destroy({
 				where: {
 					id: assetId,
 					user: userId,

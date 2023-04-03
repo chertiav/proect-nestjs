@@ -5,14 +5,17 @@ import * as bcrypt from 'bcrypt';
 import { User } from './models/user.model';
 import { Watchlist } from '../watchlist/models/watchlist.model';
 import { CreateUserDTO, UpdateUserDTO } from './dto';
+import { TokenService } from '../token/token.service';
+import { AuthUserResponse } from '../auth/response';
 
 @Injectable()
 export class UserService {
 	constructor(
 		@InjectModel(User) private readonly userRepository: typeof User,
+		private readonly tokenService: TokenService,
 	) {}
 
-	async hashPasword(password: string): Promise<string> {
+	async hashPassword(password: string): Promise<string> {
 		try {
 			return bcrypt.hash(password, 7);
 		} catch (error) {
@@ -36,7 +39,7 @@ export class UserService {
 
 	async createUser(dto: CreateUserDTO): Promise<CreateUserDTO> {
 		try {
-			dto.password = await this.hashPasword(dto.password);
+			dto.password = await this.hashPassword(dto.password);
 			await this.userRepository.create({ ...dto });
 			return dto;
 		} catch (error) {
@@ -44,9 +47,9 @@ export class UserService {
 		}
 	}
 
-	async publicUser(email: string): Promise<User> {
+	async publicUser(email: string): Promise<AuthUserResponse> {
 		try {
-			return this.userRepository.findOne({
+			const user = await this.userRepository.findOne({
 				where: { email },
 				attributes: { exclude: ['password'] },
 				include: {
@@ -54,6 +57,8 @@ export class UserService {
 					required: false,
 				},
 			});
+			const token = await this.tokenService.generateJwtToken(user);
+			return { user, token };
 		} catch (error) {
 			throw new Error(error);
 		}
