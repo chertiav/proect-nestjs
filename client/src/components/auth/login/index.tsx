@@ -1,17 +1,22 @@
 import React from 'react';
 import { Button, TextField, Typography } from '@mui/material';
 //========================================
+import { IPropsLogin } from '../../../common/types/auth';
+import AuthAdornment from '../authAdorment';
 
-const LoginPage = () => {
+const LoginPage: React.FC<IPropsLogin> = (props: IPropsLogin): JSX.Element => {
+	const { setEmail, setPassword, showPassword, setShowPassword, navigate } =
+		props;
+
 	return (
 		<>
-			<Typography variant="h2" fontFamily="Popins" textAlign="center">
+			<Typography variant="h2" fontFamily="Poppins" textAlign="center">
 				Авторизация
 			</Typography>
 			<Typography
 				variant="body1"
 				marginBottom={2}
-				fontFamily="Popins"
+				fontFamily="Poppins"
 				textAlign="center"
 			>
 				Введите Ваш логин и пароль
@@ -22,18 +27,30 @@ const LoginPage = () => {
 				label="Email"
 				variant="outlined"
 				placeholder="Введите ваш Email"
+				onChange={(e) => setEmail(e.target.value)}
 			/>
 			<TextField
 				fullWidth={true}
 				margin="normal"
 				label="Password"
-				type="password"
+				type={showPassword.password ? 'text' : 'password'}
 				variant="outlined"
 				placeholder="Введите ваш Password"
+				onChange={(e) => setPassword(e.target.value)}
+				InputProps={{
+					endAdornment: (
+						<AuthAdornment
+							showPassword={showPassword}
+							setShowPassword={setShowPassword}
+							textField="password"
+						/>
+					),
+				}}
 			/>
 			<Button
+				type="submit"
 				sx={{
-					fontFamily: 'Popins',
+					fontFamily: 'Poppins',
 					marginTop: 2,
 					marginBottom: 2,
 					width: '60%',
@@ -42,8 +59,11 @@ const LoginPage = () => {
 			>
 				Войти
 			</Button>
-			<Typography variant="body1" sx={{ fontFamily: 'Popins' }}>
-				У вас нет аккаунта?<span className="incitingText">Регистрация</span>
+			<Typography variant="body1" sx={{ fontFamily: 'Poppins' }}>
+				У вас нет аккаунта?
+				<span className="incitingText" onClick={() => navigate('/register')}>
+					Регистрация
+				</span>
 			</Typography>
 		</>
 	);
