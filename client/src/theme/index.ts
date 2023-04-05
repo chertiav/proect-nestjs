@@ -108,26 +108,26 @@ export const themeSettings: any = (mode: string) => {
 		typography: {
 			fontFamily: ['Poppins', 'sans-serif'].join(','),
 			fontSize: 14,
-			// fontWeight: 'bold',
+			fontWeight: 'bold',
 			h1: {
 				fontFamily: ['Poppins', 'sans-serif'].join(','),
 				fontSize: 28,
-				// fontWeight: 'bold',
+				fontWeight: 'bold',
 			},
 			h2: {
 				fontFamily: ['Poppins', 'sans-serif'].join(','),
 				fontSize: 20,
-				// fontWeight: 'bold',
+				fontWeight: 'bold',
 			},
 			h3: {
 				fontFamily: ['Poppins', 'sans-serif'].join(','),
 				fontSize: 18,
-				// fontWeight: 'bold',
+				fontWeight: 'bold',
 			},
 			p: {
 				fontFamily: ['Poppins', 'sans-serif'].join(','),
 				fontSize: 14,
-				// fontWeight: 500,
+				fontWeight: 500,
 			},
 		},
 	};

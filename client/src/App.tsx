@@ -6,6 +6,7 @@ import Home from './components/home';
 import PrivateRoute from './utils/router/privateRoute';
 import AuthRootComponent from './components/auth';
 import { ColorModeContext, useMode } from './theme';
+import LayoutComponent from './components/layout';
 
 function App() {
 	const [theme, colorMode] = useMode();
@@ -13,7 +14,7 @@ function App() {
 		<ColorModeContext.Provider value={colorMode}>
 			<ThemeProvider theme={theme}>
 				<CssBaseline />
-				<div>
+				<LayoutComponent>
 					<Routes>
 						<Route element={<PrivateRoute />}>
 							<Route path="/" element={<Home />} />
@@ -21,7 +22,7 @@ function App() {
 						<Route path="login" element={<AuthRootComponent />} />
 						<Route path="register" element={<AuthRootComponent />} />
 					</Routes>
-				</div>
+				</LayoutComponent>
 			</ThemeProvider>
 		</ColorModeContext.Provider>
 	);
