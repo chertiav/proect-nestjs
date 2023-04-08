@@ -12,17 +12,14 @@ import {
 	Typography,
 	useTheme,
 } from '@mui/material';
-import HomeOutlinedIcon from '@mui/icons-material/HomeOutlined';
 import ChevronLeftOutlinedIcon from '@mui/icons-material/ChevronLeftOutlined';
 import ChevronRightOutlinedIcon from '@mui/icons-material/ChevronRightOutlined';
-import AutoGraphOutlinedIcon from '@mui/icons-material/AutoGraphOutlined';
-import MenuBookOutlinedIcon from '@mui/icons-material/MenuBookOutlined';
-import SettingsOutlinedIcon from '@mui/icons-material/SettingsOutlined';
 import LogoutOutlinedIcon from '@mui/icons-material/LogoutOutlined';
 //============================================
 import { useStyles } from './styles';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import FlexBetween from '../flex-bettwen';
+import { navMenu } from '../../common/moks/navigate';
 
 function SideBarComponenet(props: any) {
 	const [active, setActive] = useState('');
@@ -35,6 +32,20 @@ function SideBarComponenet(props: any) {
 	useEffect(() => {
 		setActive(pathname.substring(1));
 	}, [pathname]);
+
+	const renderNavMenu = () =>
+		navMenu.map((element): JSX.Element => {
+			return (
+				<ListItem key={element.id}>
+					<ListItemButton onClick={() => navigate(element.path)}>
+						<ListItemIcon>{element.icon}</ListItemIcon>
+						<ListItemText>
+							<Typography variant="body1">{element.name}</Typography>
+						</ListItemText>
+					</ListItemButton>
+				</ListItem>
+			);
+		});
 
 	return (
 		<Box component="nav">
@@ -55,16 +66,19 @@ function SideBarComponenet(props: any) {
 					}}
 				>
 					<Box width="100%">
-						<FlexBetween>
-							<Box display="flex" alignItems="center" gap="10px">
-								<Typography>Demo</Typography>
-							</Box>
-							{!isNonMobile && (
-								<IconButton onClick={() => setIsOpen(!isOpen)}>
-									<ChevronLeftOutlinedIcon />
-								</IconButton>
-							)}
-						</FlexBetween>
+						<Box>
+							<FlexBetween>
+								<Box display="flex" alignItems="center" gap="10px">
+									<Typography>Demo</Typography>
+								</Box>
+								{!isNonMobile && (
+									<IconButton onClick={() => setIsOpen(!isOpen)}>
+										<ChevronLeftOutlinedIcon />
+									</IconButton>
+								)}
+							</FlexBetween>
+						</Box>
+						<List>{renderNavMenu()}</List>
 					</Box>
 				</Drawer>
 			)}
