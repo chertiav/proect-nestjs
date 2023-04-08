@@ -17,9 +17,11 @@ import ChevronRightOutlinedIcon from '@mui/icons-material/ChevronRightOutlined';
 import LogoutOutlinedIcon from '@mui/icons-material/LogoutOutlined';
 //============================================
 import { useStyles } from './styles';
-import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import FlexBetween from '../flex-bettwen';
 import { navMenu } from '../../common/moks/navigate';
+import { tokens } from '../../theme';
+import Logo from '../../assets/images/sidebar/logo.svg';
 
 function SideBarComponenet(props: any) {
 	const [active, setActive] = useState('');
@@ -28,6 +30,7 @@ function SideBarComponenet(props: any) {
 	const { classes } = useStyles();
 	const navigate = useNavigate();
 	const theme = useTheme();
+	const colors = tokens(theme.palette.mode);
 
 	useEffect(() => {
 		setActive(pathname.substring(1));
@@ -37,7 +40,10 @@ function SideBarComponenet(props: any) {
 		navMenu.map((element): JSX.Element => {
 			return (
 				<ListItem key={element.id}>
-					<ListItemButton onClick={() => navigate(element.path)}>
+					<ListItemButton
+						onClick={() => navigate(element.path)}
+						className={classes.navItem}
+					>
 						<ListItemIcon>{element.icon}</ListItemIcon>
 						<ListItemText>
 							<Typography variant="body1">{element.name}</Typography>
@@ -65,11 +71,26 @@ function SideBarComponenet(props: any) {
 						},
 					}}
 				>
-					<Box width="100%">
+					<Box
+						sx={{
+							width: '100%',
+							borderBottom: `1px solid ${colors.borderColor}`,
+						}}
+					>
 						<Box>
 							<FlexBetween>
-								<Box display="flex" alignItems="center" gap="10px">
-									<Typography>Demo</Typography>
+								<Box className={classes.brand}>
+									<img src={Logo} alt="Logo" />
+									<Typography
+										variant="h1"
+										color={
+											theme.palette.mode === 'dark'
+												? colors.white.DEFAULT
+												: colors.black.DEFAULT
+										}
+									>
+										Demo
+									</Typography>
 								</Box>
 								{!isNonMobile && (
 									<IconButton onClick={() => setIsOpen(!isOpen)}>
@@ -78,7 +99,21 @@ function SideBarComponenet(props: any) {
 								)}
 							</FlexBetween>
 						</Box>
-						<List>{renderNavMenu()}</List>
+						<List sx={{ marginBottom: '55px' }}>{renderNavMenu()}</List>
+					</Box>
+					<Box width={'100%'}>
+						<List>
+							<ListItem>
+								<ListItemButton className={classes.navItem}>
+									<ListItemIcon>
+										<LogoutOutlinedIcon />
+									</ListItemIcon>
+									<ListItemText>
+										<Typography>Logout</Typography>
+									</ListItemText>
+								</ListItemButton>
+							</ListItem>
+						</List>
 					</Box>
 				</Drawer>
 			)}
