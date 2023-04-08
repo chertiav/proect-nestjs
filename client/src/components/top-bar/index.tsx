@@ -15,7 +15,7 @@ const TopBarComponent = () => {
 	const theme = useTheme();
 	const colors = tokens(theme.palette.mode);
 	const colorMode: any = useContext(ColorModeContext);
-	const classes = useStyles();
+	const { classes } = useStyles();
 
 	return (
 		<Box display="flex" justifyContent="space-between" px="32px" py="24px">
@@ -30,6 +30,7 @@ const TopBarComponent = () => {
 					<IconButton
 						onClick={colorMode.toggleColorMode}
 						sx={{ marginRight: '45px' }}
+						className={classes.root}
 					>
 						{theme.palette.mode === 'dark' ? (
 							<DarkModeIcon />
@@ -37,7 +38,7 @@ const TopBarComponent = () => {
 							<LightModeIcon />
 						)}
 					</IconButton>
-					<IconButton>
+					<IconButton className={classes.root}>
 						<NotificationsNoneIcon />
 					</IconButton>
 				</Grid>
