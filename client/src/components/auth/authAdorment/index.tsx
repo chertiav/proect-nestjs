@@ -3,11 +3,13 @@ import { Box, IconButton } from '@mui/material';
 import { Visibility, VisibilityOff } from '@mui/icons-material';
 //=============================================================
 import { IPropsAuthAdornment } from '../../../common/types/auth';
+import { useStyles } from './styles';
 
 const AuthAdornment: React.FC<IPropsAuthAdornment> = (
 	props: IPropsAuthAdornment,
 ): JSX.Element => {
 	const { showPassword, setShowPassword, textField } = props;
+	const { classes } = useStyles();
 
 	const handleClickShowPassword = (): void => {
 		setShowPassword({
@@ -17,12 +19,7 @@ const AuthAdornment: React.FC<IPropsAuthAdornment> = (
 	};
 
 	return (
-		<Box
-			margin={1}
-			display="inline-flex"
-			alignItems="center"
-			justifyContent="center"
-		>
+		<Box className={classes.root}>
 			<IconButton
 				aria-label="toggle password visibility"
 				onClick={handleClickShowPassword}

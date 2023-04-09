@@ -3,22 +3,19 @@ import { Button, TextField, Typography } from '@mui/material';
 //========================================
 import { IPropsLogin } from '../../../common/types/auth';
 import AuthAdornment from '../authAdorment';
+import { useStyles } from './styles';
 
 const LoginPage: React.FC<IPropsLogin> = (props: IPropsLogin): JSX.Element => {
 	const { setEmail, setPassword, showPassword, setShowPassword, navigate } =
 		props;
+	const { classes } = useStyles();
 
 	return (
 		<>
-			<Typography variant="h2" fontFamily="Poppins" textAlign="center">
+			<Typography variant="h2" className={classes.root}>
 				Авторизация
 			</Typography>
-			<Typography
-				variant="body1"
-				marginBottom={2}
-				fontFamily="Poppins"
-				textAlign="center"
-			>
+			<Typography variant="body1" className={classes.descriotion}>
 				Введите Ваш логин и пароль
 			</Typography>
 			<TextField
@@ -59,9 +56,12 @@ const LoginPage: React.FC<IPropsLogin> = (props: IPropsLogin): JSX.Element => {
 			>
 				Войти
 			</Button>
-			<Typography variant="body1" sx={{ fontFamily: 'Poppins' }}>
+			<Typography variant="body1" className={classes.root}>
 				У вас нет аккаунта?
-				<span className="incitingText" onClick={() => navigate('/register')}>
+				<span
+					className={classes.incitingText}
+					onClick={() => navigate('/register')}
+				>
 					Регистрация
 				</span>
 			</Typography>
