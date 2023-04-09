@@ -7,30 +7,23 @@ import SearchIcon from '@mui/icons-material/Search';
 import NotificationsNoneIcon from '@mui/icons-material/NotificationsNone';
 //============================================
 import { useAppSelector } from '../../utils/hook';
-import { ColorModeContext, tokens } from '../../theme';
+import { ColorModeContext } from '../../theme';
 import { useStyles } from './styles';
 
 const TopBarComponent = () => {
-	const { user } = useAppSelector((state) => state.auth.user);
+	const user = useAppSelector((state) => state.auth.user);
 	const theme = useTheme();
-	const colors = tokens(theme.palette.mode);
 	const colorMode: any = useContext(ColorModeContext);
 	const { classes } = useStyles();
 
 	return (
-		<Box display="flex" justifyContent="space-between" px="32px" py="24px">
+		<Box className={classes.root}>
 			<Grid>Welcom {user?.firstName}</Grid>
-			<Box display="flex">
-				<Grid
-					sx={{
-						pr: '37px',
-						borderRight: `1px solid #373E41`,
-					}}
-				>
+			<Box className={classes.iconContainer}>
+				<Grid className={classes.iconBlock}>
 					<IconButton
 						onClick={colorMode.toggleColorMode}
-						sx={{ marginRight: '45px' }}
-						className={classes.root}
+						className={classes.icon}
 					>
 						{theme.palette.mode === 'dark' ? (
 							<DarkModeIcon />
@@ -38,28 +31,15 @@ const TopBarComponent = () => {
 							<LightModeIcon />
 						)}
 					</IconButton>
-					<IconButton className={classes.root}>
+					<IconButton className={classes.icon}>
 						<NotificationsNoneIcon />
 					</IconButton>
 				</Grid>
-				<Grid
-					sx={{
-						display: 'flex',
-						backgroundColor: `${colors.primary['600']}`,
-						borderRadius: '8px',
-						ml: '28px',
-					}}
-				>
-					<IconButton className={classes.root}>
+				<Grid className={classes.searchBlock}>
+					<IconButton className={classes.icon}>
 						<SearchIcon />
 					</IconButton>
-					<InputBase
-						placeholder="Поиск"
-						sx={{
-							px: '18px',
-							py: '12px',
-						}}
-					/>
+					<InputBase placeholder="Поиск" className={classes.searchInput} />
 				</Grid>
 			</Box>
 		</Box>

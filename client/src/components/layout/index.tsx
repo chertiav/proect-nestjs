@@ -17,15 +17,10 @@ const LayoutComponent = ({ children }: ILayout) => {
 		<>{children}</>
 	) : (
 		<>
-			<Box
-				display={isNonMobile ? 'flex' : 'block'}
-				justifyContent={'space-between'}
-				width={'100%'}
-				height={'100%'}
-			>
+			<Box display={isNonMobile ? 'flex' : 'block'} className={classes.root}>
 				<SideBarComponenet
 					isNonMobile={isNonMobile}
-					drowerWidth="250"
+					drowerWidth="220px"
 					isOpen={isOpen}
 					setIsOpen={setIsOpen}
 				/>

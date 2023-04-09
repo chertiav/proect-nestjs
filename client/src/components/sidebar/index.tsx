@@ -10,27 +10,23 @@ import {
 	ListItemIcon,
 	ListItemText,
 	Typography,
-	useTheme,
 } from '@mui/material';
 import ChevronLeftOutlinedIcon from '@mui/icons-material/ChevronLeftOutlined';
-import ChevronRightOutlinedIcon from '@mui/icons-material/ChevronRightOutlined';
+// import ChevronRightOutlinedIcon from '@mui/icons-material/ChevronRightOutlined';
 import LogoutOutlinedIcon from '@mui/icons-material/LogoutOutlined';
 //============================================
 import { useStyles } from './styles';
 import { useLocation, useNavigate } from 'react-router-dom';
 import FlexBetween from '../flex-bettwen';
 import { navMenu } from '../../common/moks/navigate';
-import { tokens } from '../../theme';
 import Logo from '../../assets/images/sidebar/logo.svg';
 
 function SideBarComponenet(props: any) {
 	const [active, setActive] = useState('');
-	const { isNonMobile, drowerWidth, isOpen, setIsOpen } = props;
+	const { isNonMobile, isOpen, setIsOpen } = props;
 	const { pathname } = useLocation();
-	const { classes } = useStyles();
+	const { classes } = useStyles(props);
 	const navigate = useNavigate();
-	const theme = useTheme();
-	const colors = tokens(theme.palette.mode);
 
 	useEffect(() => {
 		setActive(pathname.substring(1));
@@ -61,34 +57,14 @@ function SideBarComponenet(props: any) {
 					onClose={() => setIsOpen(false)}
 					variant="persistent"
 					anchor="left"
-					sx={{
-						width: drowerWidth,
-						'& .MuiDrawer-paper': {
-							color: theme.palette.secondary.main,
-							background: theme.palette.primary.main,
-							boxSizing: 'border-box',
-							width: drowerWidth,
-						},
-					}}
+					className={classes.root}
 				>
-					<Box
-						sx={{
-							width: '100%',
-							borderBottom: `1px solid ${colors.borderColor}`,
-						}}
-					>
+					<Box className={classes.navBlock}>
 						<Box>
 							<FlexBetween>
 								<Box className={classes.brand}>
 									<img src={Logo} alt="Logo" />
-									<Typography
-										variant="h1"
-										color={
-											theme.palette.mode === 'dark'
-												? colors.white.DEFAULT
-												: colors.black.DEFAULT
-										}
-									>
+									<Typography variant="h1" className={classes.brandTitle}>
 										Demo
 									</Typography>
 								</Box>
@@ -99,9 +75,9 @@ function SideBarComponenet(props: any) {
 								)}
 							</FlexBetween>
 						</Box>
-						<List sx={{ marginBottom: '55px' }}>{renderNavMenu()}</List>
+						<List className={classes.navList}>{renderNavMenu()}</List>
 					</Box>
-					<Box width={'100%'}>
+					<Box className={classes.navFotter}>
 						<List>
 							<ListItem>
 								<ListItemButton className={classes.navItem}>
