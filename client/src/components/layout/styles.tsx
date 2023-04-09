@@ -8,7 +8,7 @@ export const useStyles = makeStyles()((theme) => {
 		},
 		mainSection: {
 			display: 'flex',
-			width: '100%',
+			flexGrow: 1,
 			flexDirection: 'column',
 			justifyContent: 'center',
 		},
