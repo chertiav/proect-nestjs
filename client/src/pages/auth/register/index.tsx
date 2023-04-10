@@ -3,13 +3,14 @@ import { TextField, Typography } from '@mui/material';
 //========================================================
 import { IPropsRegister } from '../../../common/types/auth';
 import AuthAdornment from '../../../components/auth-adorment';
-import AppButon from '../../../components/app-button';
 import { useStyles } from './style';
+import AppLoadingButton from '../../../components/loading-button';
 
 const RegisterPage: React.FC<IPropsRegister> = (
 	props: IPropsRegister,
 ): JSX.Element => {
-	const { showPassword, setShowPassword, navigate, register, errors } = props;
+	const { showPassword, setShowPassword, navigate, register, errors, loading } =
+		props;
 	const { classes } = useStyles();
 
 	return (
@@ -96,9 +97,14 @@ const RegisterPage: React.FC<IPropsRegister> = (
 					),
 				}}
 			/>
-			<AppButon type="submit" variant="contained" className={classes.button}>
+			<AppLoadingButton
+				loading={loading}
+				type="submit"
+				variant="contained"
+				className={classes.button}
+			>
 				Регистрация
-			</AppButon>
+			</AppLoadingButton>
 			<Typography variant="body1">
 				У вас есть аккаунта?
 				<span

@@ -14,6 +14,7 @@ export interface IPropsLogin<
 	TFieldValues extends FieldValues = FieldValues,
 	TContext = any,
 > {
+	loading: boolean;
 	navigate: (to: string) => void;
 	showPassword: IShowPassword;
 	setShowPassword: (value: IShowPassword) => void;
@@ -24,6 +25,7 @@ export interface IPropsRegister<
 	TFieldValues extends FieldValues = FieldValues,
 	TContext = any,
 > {
+	loading: boolean;
 	navigate: (to: string) => void;
 	showPassword: IShowPassword;
 	setShowPassword: (value: IShowPassword) => void;
@@ -53,4 +55,17 @@ interface IWatchlist {
 export interface IAuthState {
 	user: IPublicUser;
 	isLogged: boolean;
+	isLoading: boolean;
+}
+
+export interface ILoginData {
+	email: string;
+	password: string;
+}
+
+export interface IRegisterData {
+	email: string;
+	password: string;
+	firstName: string;
+	userName: string;
 }

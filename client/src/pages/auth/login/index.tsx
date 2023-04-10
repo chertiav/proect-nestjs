@@ -1,13 +1,14 @@
 import React from 'react';
-import { Button, TextField, Typography } from '@mui/material';
+import { TextField, Typography } from '@mui/material';
 //========================================
 import { IPropsLogin } from '../../../common/types/auth';
 import AuthAdornment from '../../../components/auth-adorment';
 import { useStyles } from './styles';
-import AppButton from '../../../components/app-button';
+import AppLoadingButton from '../../../components/loading-button';
 
 const LoginPage: React.FC<IPropsLogin> = (props: IPropsLogin): JSX.Element => {
-	const { showPassword, setShowPassword, navigate, register, errors } = props;
+	const { showPassword, setShowPassword, navigate, register, errors, loading } =
+		props;
 	const { classes } = useStyles();
 
 	return (
@@ -48,9 +49,14 @@ const LoginPage: React.FC<IPropsLogin> = (props: IPropsLogin): JSX.Element => {
 					),
 				}}
 			/>
-			<AppButton type="submit" variant="contained" className={classes.button}>
+			<AppLoadingButton
+				loading={loading}
+				type="submit"
+				variant="contained"
+				className={classes.button}
+			>
 				Войти
-			</AppButton>
+			</AppLoadingButton>
 			<Typography variant="body1">
 				У вас нет аккаунта?
 				<span

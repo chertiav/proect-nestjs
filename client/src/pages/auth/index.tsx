@@ -6,12 +6,11 @@ import { yupResolver } from '@hookform/resolvers/yup';
 //=============================================
 import LoginPage from './login';
 import RegisterPage from './register';
-import { instance } from '../../utils/axios';
-import { useAppDispatch } from '../../utils/hook';
-import { login } from '../../store/slice/auth';
+import { useAppDispatch, useAppSelector } from '../../utils/hook';
 import { AppErrors } from '../../common/errors';
 import { LoginSchema, RegisterSchema } from '../../utils/yup';
 import { useStyles } from './styles';
+import { loginUser, registerUser } from '../../store/thunks/auth';
 
 const AuthRootComponent: React.FC = (): JSX.Element => {
 	const [showPassword, setShowPassword] = useState({
@@ -31,13 +30,12 @@ const AuthRootComponent: React.FC = (): JSX.Element => {
 			location.pathname === '/login' ? LoginSchema : RegisterSchema,
 		),
 	});
+	const loading = useAppSelector((state) => state.auth.isLoading);
 
 	const handleSubmitForm = async (data: any) => {
 		if (location.pathname === '/login') {
 			try {
-				const userData = { email: data.email, password: data.password };
-				const user = await instance.post('auth/login', userData);
-				dispatch(login(user.data));
+				await dispatch(loginUser(data));
 				navigate('/');
 			} catch (e) {
 				let message = 'Unknown Error';
@@ -53,8 +51,7 @@ const AuthRootComponent: React.FC = (): JSX.Element => {
 						email: data.email,
 						password: data.password,
 					};
-					const newUser = await instance.post('auth/register', userData);
-					dispatch(login(newUser.data));
+					await dispatch(registerUser(userData));
 					navigate('/');
 				} catch (e) {
 					let message = 'Unknown Error';
@@ -88,6 +85,7 @@ const AuthRootComponent: React.FC = (): JSX.Element => {
 							showPassword={showPassword}
 							setShowPassword={setShowPassword}
 							navigate={navigate}
+							loading={loading}
 						/>
 					) : location.pathname === '/register' ? (
 						<RegisterPage
@@ -96,6 +94,7 @@ const AuthRootComponent: React.FC = (): JSX.Element => {
 							showPassword={showPassword}
 							setShowPassword={setShowPassword}
 							navigate={navigate}
+							loading={loading}
 						/>
 					) : null}
 				</Box>

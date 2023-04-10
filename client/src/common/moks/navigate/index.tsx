@@ -11,7 +11,7 @@ export const navMenu = [
 		id: 1,
 	},
 	{
-		name: 'Избранноен',
+		name: 'Избранное',
 		icon: <AutoGraphOutlinedIcon />,
 		path: '/watchList',
 		id: 2,
