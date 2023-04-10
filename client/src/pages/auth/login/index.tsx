@@ -2,8 +2,9 @@ import React from 'react';
 import { Button, TextField, Typography } from '@mui/material';
 //========================================
 import { IPropsLogin } from '../../../common/types/auth';
-import AuthAdornment from '../authAdorment';
+import AuthAdornment from '../../../components/auth-adorment';
 import { useStyles } from './styles';
+import AppButton from '../../../components/app-button';
 
 const LoginPage: React.FC<IPropsLogin> = (props: IPropsLogin): JSX.Element => {
 	const { showPassword, setShowPassword, navigate, register, errors } = props;
@@ -47,19 +48,10 @@ const LoginPage: React.FC<IPropsLogin> = (props: IPropsLogin): JSX.Element => {
 					),
 				}}
 			/>
-			<Button
-				type="submit"
-				sx={{
-					fontFamily: 'Poppins',
-					marginTop: 2,
-					marginBottom: 2,
-					width: '60%',
-				}}
-				variant="contained"
-			>
+			<AppButton type="submit" variant="contained" className={classes.button}>
 				Войти
-			</Button>
-			<Typography variant="body1" className={classes.root}>
+			</AppButton>
+			<Typography variant="body1">
 				У вас нет аккаунта?
 				<span
 					className={classes.incitingText}

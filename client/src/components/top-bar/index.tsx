@@ -21,8 +21,11 @@ import { useAppSelector } from '../../utils/hook';
 import { ColorModeContext } from '../../theme';
 import { useStyles } from './styles';
 import FlexBetween from '../flex-bettwen';
+import { ITopbarProps } from '../../common/types/topbar';
 
-const TopBarComponent = (props: any) => {
+const TopBarComponent: React.FC<ITopbarProps> = (
+	props: ITopbarProps,
+): JSX.Element => {
 	const { user } = useAppSelector((state) => state.auth);
 	const theme = useTheme();
 	const colorMode: any = useContext(ColorModeContext);
