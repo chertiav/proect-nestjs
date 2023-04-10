@@ -2,14 +2,14 @@ import React from 'react';
 import { Route, Routes } from 'react-router-dom';
 import { ThemeProvider, CssBaseline } from '@mui/material';
 //=====================================================
-import Home from './components/home';
+import Home from './pages/home';
 import PrivateRoute from './utils/router/privateRoute';
-import AuthRootComponent from './components/auth';
+import AuthRootComponent from './pages/auth';
 import { ColorModeContext, useMode } from './theme';
 import LayoutComponent from './components/layout';
-import WatchListComponent from './components/watchlist';
-import NewsComponent from './components/news';
-import SettingsComponent from './components/settings';
+import WatchListComponent from './pages/watchlist';
+import NewsComponent from './pages/news';
+import SettingsComponent from './pages/settings';
 
 function App() {
 	const [theme, colorMode] = useMode();

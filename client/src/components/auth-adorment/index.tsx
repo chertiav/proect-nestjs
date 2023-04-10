@@ -2,7 +2,7 @@ import React from 'react';
 import { Box, IconButton } from '@mui/material';
 import { Visibility, VisibilityOff } from '@mui/icons-material';
 //=============================================================
-import { IPropsAuthAdornment } from '../../../common/types/auth';
+import { IPropsAuthAdornment } from '../../common/types/auth';
 import { useStyles } from './styles';
 
 const AuthAdornment: React.FC<IPropsAuthAdornment> = (

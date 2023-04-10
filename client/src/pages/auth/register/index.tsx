@@ -1,24 +1,26 @@
 import React from 'react';
-import { Button, TextField, Typography } from '@mui/material';
+import { TextField, Typography } from '@mui/material';
 //========================================================
 import { IPropsRegister } from '../../../common/types/auth';
-import AuthAdornment from '../authAdorment';
+import AuthAdornment from '../../../components/auth-adorment';
+import AppButon from '../../../components/app-button';
+import { useStyles } from './style';
 
 const RegisterPage: React.FC<IPropsRegister> = (
 	props: IPropsRegister,
 ): JSX.Element => {
 	const { showPassword, setShowPassword, navigate, register, errors } = props;
+	const { classes } = useStyles();
 
 	return (
 		<>
-			<Typography variant="h2" fontFamily="Poppins" textAlign="center">
+			<Typography variant="h2" className={classes.root}>
 				Регистрация
 			</Typography>
 			<Typography
 				variant="body1"
 				marginBottom={2}
-				fontFamily="Poppins"
-				textAlign="center"
+				className={classes.descriotion}
 			>
 				Введите данные для регистрации
 			</Typography>
@@ -94,21 +96,15 @@ const RegisterPage: React.FC<IPropsRegister> = (
 					),
 				}}
 			/>
-			<Button
-				type="submit"
-				sx={{
-					fontFamily: 'Poppins',
-					marginTop: 2,
-					marginBottom: 2,
-					width: '60%',
-				}}
-				variant="contained"
-			>
-				Войти
-			</Button>
-			<Typography variant="body1" sx={{ fontFamily: 'Poppins' }}>
+			<AppButon type="submit" variant="contained" className={classes.button}>
+				Регистрация
+			</AppButon>
+			<Typography variant="body1">
 				У вас есть аккаунта?
-				<span className="incitingText" onClick={() => navigate('/login')}>
+				<span
+					className={classes.incitingText}
+					onClick={() => navigate('/login')}
+				>
 					Авторизация
 				</span>
 			</Typography>
