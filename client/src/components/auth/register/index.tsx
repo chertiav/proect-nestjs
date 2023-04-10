@@ -7,16 +7,7 @@ import AuthAdornment from '../authAdorment';
 const RegisterPage: React.FC<IPropsRegister> = (
 	props: IPropsRegister,
 ): JSX.Element => {
-	const {
-		setEmail,
-		setPassword,
-		setRepeatPassword,
-		setUserName,
-		setFirstName,
-		showPassword,
-		setShowPassword,
-		navigate,
-	} = props;
+	const { showPassword, setShowPassword, navigate, register, errors } = props;
 
 	return (
 		<>
@@ -32,37 +23,45 @@ const RegisterPage: React.FC<IPropsRegister> = (
 				Введите данные для регистрации
 			</Typography>
 			<TextField
+				error={!!errors.firstName}
 				fullWidth={true}
 				margin="normal"
 				label="Имя"
 				variant="outlined"
 				placeholder="Введите ваше Имя"
-				onChange={(e) => setFirstName(e.target.value)}
+				helperText={errors.firstName ? `${errors.firstName.message}` : ''}
+				{...register('firstName')}
 			/>
 			<TextField
+				error={!!errors.userName}
 				fullWidth={true}
 				margin="normal"
 				label="Username"
 				variant="outlined"
 				placeholder="Введите ваш Username"
-				onChange={(e) => setUserName(e.target.value)}
+				helperText={errors.userName ? `${errors.userName.message}` : ''}
+				{...register('userName')}
 			/>
 			<TextField
+				error={!!errors.email}
 				fullWidth={true}
 				margin="normal"
 				label="Email"
 				variant="outlined"
 				placeholder="Введите ваш Email"
-				onChange={(e) => setEmail(e.target.value)}
+				helperText={errors.email ? `${errors.email.message}` : ''}
+				{...register('email')}
 			/>
 			<TextField
+				error={!!errors.password}
 				fullWidth={true}
 				margin="normal"
 				label="Password"
 				type={showPassword.password ? 'text' : 'password'}
 				variant="outlined"
 				placeholder="Введите ваш Password"
-				onChange={(e) => setPassword(e.target.value)}
+				helperText={errors.password ? `${errors.password.message}` : ''}
+				{...register('password')}
 				InputProps={{
 					endAdornment: (
 						<AuthAdornment
@@ -75,18 +74,22 @@ const RegisterPage: React.FC<IPropsRegister> = (
 			/>
 			<TextField
 				fullWidth={true}
+				error={!!errors.confirmPassword}
 				margin="normal"
 				label="Password"
-				type={showPassword.repeatPassword ? 'text' : 'password'}
+				type={showPassword.confirmPassword ? 'text' : 'password'}
 				variant="outlined"
 				placeholder="Повторите ваш Password"
-				onChange={(e) => setRepeatPassword(e.target.value)}
+				helperText={
+					errors.confirmPassword ? `${errors.confirmPassword.message}` : ''
+				}
+				{...register('confirmPassword')}
 				InputProps={{
 					endAdornment: (
 						<AuthAdornment
 							showPassword={showPassword}
 							setShowPassword={setShowPassword}
-							textField="repeatPassword"
+							textField="confirmPassword"
 						/>
 					),
 				}}
