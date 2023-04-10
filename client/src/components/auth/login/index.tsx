@@ -6,8 +6,7 @@ import AuthAdornment from '../authAdorment';
 import { useStyles } from './styles';
 
 const LoginPage: React.FC<IPropsLogin> = (props: IPropsLogin): JSX.Element => {
-	const { setEmail, setPassword, showPassword, setShowPassword, navigate } =
-		props;
+	const { showPassword, setShowPassword, navigate, register, errors } = props;
 	const { classes } = useStyles();
 
 	return (
@@ -19,21 +18,25 @@ const LoginPage: React.FC<IPropsLogin> = (props: IPropsLogin): JSX.Element => {
 				Введите Ваш логин и пароль
 			</Typography>
 			<TextField
+				error={!!errors.email}
 				fullWidth={true}
 				margin="normal"
 				label="Email"
 				variant="outlined"
 				placeholder="Введите ваш Email"
-				onChange={(e) => setEmail(e.target.value)}
+				helperText={errors.email ? `${errors.email.message}` : ''}
+				{...register('email')}
 			/>
 			<TextField
+				error={!!errors.password}
 				fullWidth={true}
 				margin="normal"
 				label="Password"
 				type={showPassword.password ? 'text' : 'password'}
 				variant="outlined"
 				placeholder="Введите ваш Password"
-				onChange={(e) => setPassword(e.target.value)}
+				helperText={errors.password ? `${errors.password.message}` : ''}
+				{...register('password')}
 				InputProps={{
 					endAdornment: (
 						<AuthAdornment

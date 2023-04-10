@@ -1,6 +1,8 @@
+import { FieldErrors, FieldValues, UseFormRegister } from 'react-hook-form';
+
 interface IShowPassword {
 	password: boolean;
-	repeatPassword: boolean;
+	confirmPassword: boolean;
 	[key: string]: boolean;
 }
 export interface IPropsAuthAdornment {
@@ -8,22 +10,25 @@ export interface IPropsAuthAdornment {
 	setShowPassword: (value: IShowPassword) => void;
 	textField: string;
 }
-export interface IPropsLogin {
-	setEmail: (value: string) => void;
-	setPassword: (value: string) => void;
+export interface IPropsLogin<
+	TFieldValues extends FieldValues = FieldValues,
+	TContext = any,
+> {
 	navigate: (to: string) => void;
 	showPassword: IShowPassword;
 	setShowPassword: (value: IShowPassword) => void;
+	register: UseFormRegister<TFieldValues>;
+	errors: FieldErrors<TFieldValues>;
 }
-export interface IPropsRegister {
-	setEmail: (value: string) => void;
-	setPassword: (value: string) => void;
-	setRepeatPassword: (value: string) => void;
-	setUserName: (value: string) => void;
-	setFirstName: (value: string) => void;
+export interface IPropsRegister<
+	TFieldValues extends FieldValues = FieldValues,
+	TContext = any,
+> {
 	navigate: (to: string) => void;
 	showPassword: IShowPassword;
 	setShowPassword: (value: IShowPassword) => void;
+	register: UseFormRegister<TFieldValues>;
+	errors: FieldErrors<TFieldValues>;
 }
 
 interface IPublicUser {
