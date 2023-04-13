@@ -17,7 +17,6 @@ import {
 	MenuOutlined,
 } from '@mui/icons-material';
 //============================================
-import { useAppSelector } from '../../utils/hook';
 import { ColorModeContext } from '../../theme';
 import { useStyles } from './styles';
 import FlexBetween from '../flex-bettwen';
@@ -26,7 +25,6 @@ import { ITopbarProps } from '../../common/types/topbar';
 const TopBarComponent: React.FC<ITopbarProps> = (
 	props: ITopbarProps,
 ): JSX.Element => {
-	const { user } = useAppSelector((state) => state.auth);
 	const theme = useTheme();
 	const colorMode: any = useContext(ColorModeContext);
 	const { classes } = useStyles();
@@ -40,7 +38,9 @@ const TopBarComponent: React.FC<ITopbarProps> = (
 						className={classes.menuIcon}
 						onClick={() => setIsOpen(!isOpen)}
 					/>
-					<Typography variant="h3">Welcom {user?.firstName}</Typography>
+					<Typography variant="h3">
+						Welcom {sessionStorage.getItem('name')}
+					</Typography>
 				</FlexBetween>
 				<Box className={classes.iconContainer}>
 					<Grid className={classes.iconBlock}>
