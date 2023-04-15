@@ -55,9 +55,9 @@ export const useStyles = makeStyles()((theme) => {
 			padding: '2px 4px',
 		},
 		priceTrend: {
-			width: '20%',
+			width: 80,
 			display: 'flex',
-			justifyContent: 'space-evenly',
+			justifyContent: 'center',
 			padding: '2px',
 			borderRadius: 4,
 		},
@@ -79,6 +79,24 @@ export const useStyles = makeStyles()((theme) => {
 			minHeight: 270,
 			border: `1px solid ${colors.borderColor}`,
 			borderRadius: 12,
+			marginBottom: 32,
+		},
+		topPriceRoot: {
+			backgroundColor: `${
+				theme.palette.mode === 'light'
+					? colors.primary.DEFAULT
+					: colors.primary[600]
+			}`,
+			padding: '20px 16px',
+			marginBottom: 32,
+			minHeight: 270,
+			border: `1px solid ${colors.borderColor}`,
+			borderRadius: 12,
+			'& .MuiPaper-root': {
+				backgroundColor: 'transparent',
+				boxShadow: 'none',
+				backgroundImage: 'none',
+			},
 		},
 	};
 });

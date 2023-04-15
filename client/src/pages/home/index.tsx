@@ -2,27 +2,38 @@ import React, { useCallback, useEffect, useMemo, useRef } from 'react';
 import { Box, Grid } from '@mui/material';
 //===============================================================
 import { useStyles } from './styles';
-import { getFavoriteAssets } from '../../store/thunks/assets';
+import { getFavoriteAssets, getTopPriceData } from '../../store/thunks/assets';
 import { useAppDispatch, useAppSelector } from '../../utils/hook';
 import AreaChart from '../../components/charts/area-chart';
 import LineChart from '../../components/charts/line-chart';
 import TrendUp from '../../assets/images/chart/trend-up.svg';
 import TrendDown from '../../assets/images/chart/trend-down.svg';
 import { IChartData, ISingleAsset } from '../../common/types/assets';
+import TopPriceComponent from '../../components/top-price';
 
 const Home: React.FC = (): JSX.Element => {
 	const favoriteAssets: IChartData[] = useAppSelector(
 		(state) => state.assets.favoriteAssets,
 	);
-	const favoriteAssetName = useMemo(() => ['bitcoin', 'ethereum'], []);
-	const filteredArray = favoriteAssets.filter(
-		(value, index, self) =>
-			index === self.findIndex((t) => t.name === value.name),
+	const assetsArray: ISingleAsset[] = useAppSelector(
+		(state) => state.assets.assets,
 	);
-
 	const dispatch = useAppDispatch();
 	const fetchDataRef = useRef(false);
 	const { classes } = useStyles();
+	const favoriteAssetName = useMemo(() => ['bitcoin', 'ethereum'], []);
+	const filteredArray = useMemo(() => {
+		return favoriteAssets.filter(
+			(value, index, self) =>
+				index === self.findIndex((t) => t.name === value.name),
+		);
+	}, [favoriteAssets]);
+
+	const filteredAssetArray = useMemo(() => {
+		return assetsArray
+			.slice()
+			.sort((a, b) => b.current_price - a.current_price);
+	}, [assetsArray]);
 
 	const fetchData = useCallback(
 		(data: string[]) => {
@@ -37,7 +48,8 @@ const Home: React.FC = (): JSX.Element => {
 		if (fetchDataRef.current) return;
 		fetchDataRef.current = true;
 		fetchData(favoriteAssetName);
-	}, [favoriteAssetName, fetchData]);
+		dispatch(getTopPriceData());
+	}, [favoriteAssetName, fetchData, dispatch]);
 
 	const renderFavoriteBlock: JSX.Element[] = filteredArray.map(
 		(element: IChartData) => {
@@ -104,6 +116,13 @@ const Home: React.FC = (): JSX.Element => {
 			<Grid container className={classes.lineChartBlock}>
 				<Grid item xs={12} sm={12} lg={12}>
 					{filteredArray.length && <LineChart data={filteredArray} />}
+				</Grid>
+			</Grid>
+			<Grid container className={classes.topPriceRoot}>
+				<Grid item xs={12} sm={12} lg={12}>
+					{filteredAssetArray.length && (
+						<TopPriceComponent assets={filteredAssetArray.slice(0, 6)} />
+					)}
 				</Grid>
 			</Grid>
 		</Box>
