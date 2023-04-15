@@ -8,7 +8,7 @@ import AreaChart from '../../components/charts/area-chart';
 import LineChart from '../../components/charts/line-chart';
 import TrendUp from '../../assets/images/chart/trend-up.svg';
 import TrendDown from '../../assets/images/chart/trend-down.svg';
-import { IChartData } from '../../common/types/assets';
+import { IChartData, ISingleAsset } from '../../common/types/assets';
 
 const Home: React.FC = (): JSX.Element => {
 	const favoriteAssets: IChartData[] = useAppSelector(
@@ -40,18 +40,18 @@ const Home: React.FC = (): JSX.Element => {
 	}, [favoriteAssetName, fetchData]);
 
 	const renderFavoriteBlock: JSX.Element[] = filteredArray.map(
-		(element: any) => {
+		(element: IChartData) => {
+			let currentPrice: number = 0;
+			let changePrice: number = 0;
 			const { price_chart_data, name, singleAsset } = element;
-			const currentPrice = singleAsset.map(
-				(element: any) => element.current_price,
-			);
-			const changePrice = singleAsset.map(
-				(element: any) => element.market_cap_change_percentage_24h,
-			);
-			const slicePrice = price_chart_data.map(
+			singleAsset.forEach((element: ISingleAsset): void => {
+				currentPrice = element.current_price;
+				changePrice = element.price_change_percentage_24h;
+			});
+			const slicePrice: number[] = price_chart_data.map(
 				(element: number[]) => element[1],
 			);
-			const avveragePrice =
+			const avveragePrice: number =
 				slicePrice.reduce((price: number, total: number) => price + total) /
 				slicePrice.length;
 			return (
@@ -76,7 +76,7 @@ const Home: React.FC = (): JSX.Element => {
 										) : (
 											<img src={TrendDown} alt="down" />
 										)}
-										<span>{parseFloat(changePrice).toFixed(2)}%</span>
+										<span>{changePrice.toFixed(2)}%</span>
 									</Box>
 									<span className={classes.avveragePrice}>
 										$ {avveragePrice.toLocaleString()}
