@@ -12,7 +12,7 @@ import { LoginSchema, RegisterSchema } from '../../utils/yup';
 import { useStyles } from './styles';
 import { loginUser, registerUser } from '../../store/thunks/auth';
 
-const AuthRootComponent: React.FC = (): JSX.Element => {
+const AuthRootPage: React.FC = (): JSX.Element => {
 	const [showPassword, setShowPassword] = useState({
 		password: false,
 		confirmPassword: false,
@@ -103,4 +103,4 @@ const AuthRootComponent: React.FC = (): JSX.Element => {
 	);
 };
 
-export default AuthRootComponent;
+export default AuthRootPage;

@@ -1,7 +1,7 @@
 import React from 'react';
 
-function newsComponent() {
+function newsPage() {
 	return <div>newsPageComponent</div>;
 }
 
-export default newsComponent;
+export default newsPage;
