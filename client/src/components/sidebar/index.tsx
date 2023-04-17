@@ -19,6 +19,8 @@ import FlexBetween from '../flex-bettwen';
 import { navMenu } from '../../common/moks/navigate';
 import Logo from '../../assets/images/sidebar/logo.svg';
 import { ISidebarProps } from '../../common/types/sidebar';
+import ThemeSwitcherComponent from '../them-switcher';
+import SearchBarComponent from '../search-bar';
 
 const SideBarComponenet: React.FC<ISidebarProps> = (
 	props: ISidebarProps,
@@ -80,10 +82,24 @@ const SideBarComponenet: React.FC<ISidebarProps> = (
 								)}
 							</FlexBetween>
 						</Box>
+						{!isNonMobile && (
+							<List>
+								<ListItem>
+									<SearchBarComponent />
+								</ListItem>
+							</List>
+						)}
 						<List className={classes.navList}>{renderNavMenu()}</List>
 					</Box>
 					<Box className={classes.navFotter}>
 						<List>
+							{!isNonMobile && (
+								<ListItem>
+									<Box padding={'5px'}>
+										<ThemeSwitcherComponent />
+									</Box>
+								</ListItem>
+							)}
 							<ListItem>
 								<ListItemButton className={classes.navItem}>
 									<ListItemIcon>

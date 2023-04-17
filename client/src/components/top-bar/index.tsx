@@ -1,66 +1,47 @@
-import React, { useContext } from 'react';
-import {
-	AppBar,
-	Box,
-	Grid,
-	IconButton,
-	InputBase,
-	Toolbar,
-	Typography,
-} from '@mui/material';
-import { useTheme } from '@mui/material';
-import {
-	LightMode,
-	DarkMode,
-	Search,
-	NotificationsNone,
-	MenuOutlined,
-} from '@mui/icons-material';
+import React from 'react';
+import { AppBar, Grid, Toolbar, Typography } from '@mui/material';
+import { MenuOutlined } from '@mui/icons-material';
 //============================================
-import { ColorModeContext } from '../../theme';
 import { useStyles } from './styles';
 import FlexBetween from '../flex-bettwen';
 import { ITopbarProps } from '../../common/types/topbar';
+import ThemeSwitcherComponent from '../them-switcher';
+import SearchBarComponent from '../search-bar';
 
 const TopBarComponent: React.FC<ITopbarProps> = (
 	props: ITopbarProps,
 ): JSX.Element => {
-	const theme = useTheme();
-	const colorMode: any = useContext(ColorModeContext);
 	const { classes } = useStyles();
-	const { isOpen, setIsOpen } = props;
+	const { isOpen, setIsOpen, isNonMobile } = props;
 
 	return (
 		<AppBar className={classes.root}>
 			<Toolbar className={classes.toolBar}>
-				<FlexBetween>
-					<MenuOutlined
-						className={classes.menuIcon}
-						onClick={() => setIsOpen(!isOpen)}
-					/>
-					<Typography variant="h3">
-						Welcom {sessionStorage.getItem('name')}
-					</Typography>
-				</FlexBetween>
-				<Box className={classes.iconContainer}>
-					<Grid className={classes.iconBlock}>
-						<IconButton
-							onClick={colorMode.toggleColorMode}
-							className={classes.icon}
+				<Grid container justifyContent={'space-between'} alignItems={'center'}>
+					<Grid item sm={3} lg={3}>
+						<FlexBetween>
+							<MenuOutlined
+								className={classes.menuIcon}
+								onClick={() => setIsOpen(!isOpen)}
+							/>
+							<Typography variant="h3">
+								Welcom {sessionStorage.getItem('name')}
+							</Typography>
+						</FlexBetween>
+					</Grid>
+					{isNonMobile && (
+						<Grid
+							item
+							sm={9}
+							lg={9}
+							display={'flex'}
+							justifyContent={'flex-end'}
 						>
-							{theme.palette.mode === 'dark' ? <DarkMode /> : <LightMode />}
-						</IconButton>
-						<IconButton className={classes.icon}>
-							<NotificationsNone />
-						</IconButton>
-					</Grid>
-					<Grid className={classes.searchBlock}>
-						<IconButton className={classes.icon}>
-							<Search />
-						</IconButton>
-						<InputBase placeholder="Поиск" className={classes.searchInput} />
-					</Grid>
-				</Box>
+							<ThemeSwitcherComponent />
+							<SearchBarComponent />
+						</Grid>
+					)}
+				</Grid>
 			</Toolbar>
 		</AppBar>
 	);
