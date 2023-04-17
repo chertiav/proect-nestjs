@@ -1,7 +1,7 @@
 import React from 'react';
 
-function watchListCopponent() {
+function watchListPage() {
 	return <div>watchListCopponent</div>;
 }
 
-export default watchListCopponent;
+export default watchListPage;

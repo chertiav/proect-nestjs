@@ -1,7 +1,7 @@
 import React from 'react';
 
-function SettingsComponent() {
+function SettingsPage() {
 	return <div>SettingsComponent</div>;
 }
 
-export default SettingsComponent;
+export default SettingsPage;
