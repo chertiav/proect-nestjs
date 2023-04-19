@@ -2,7 +2,7 @@ import React from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { ISingleAsset } from '../../common/types/assets';
 import { useAppDispatch, useAppSelector } from '../../utils/hook';
-import { Avatar, Box, Button, Grid, Typography } from '@mui/material';
+import { Avatar, Button, Grid, Typography } from '@mui/material';
 import FlexBetween from '../../components/flex-bettwen';
 import { useStyles } from './styles';
 import { createWatchListRecord } from '../../store/thunks/assets';
@@ -22,8 +22,6 @@ const SingleAssetPage: React.FC = (): JSX.Element => {
 			assetId: '',
 		};
 		if (asset) {
-			const token = sessionStorage.getItem('token');
-			console.log(token);
 			data.name = asset.name;
 			data.assetId = asset.id;
 			dispatch(createWatchListRecord(data));

@@ -111,13 +111,13 @@ export const themeSettings: any = (mode: string) => {
 			fontWeight: 'bold',
 			h1: {
 				fontFamily: ['Poppins', 'sans-serif'].join(','),
-				fontSize: 28,
-				fontWeight: 'bold',
+				fontSize: 40,
+				fontWeight: 600,
 			},
 			h2: {
 				fontFamily: ['Poppins', 'sans-serif'].join(','),
-				fontSize: 20,
-				fontWeight: 'bold',
+				fontSize: 35,
+				fontWeight: 600,
 			},
 			h3: {
 				fontFamily: ['Poppins', 'sans-serif'].join(','),
