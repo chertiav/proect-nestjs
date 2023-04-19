@@ -26,6 +26,7 @@ export class WatchlistController {
 		@Req() request,
 	): Promise<CreateAssetResponse> {
 		const user = request.user;
+		console.log(user);
 		return this.watchListService.createAsset(user, assetDto);
 	}
 

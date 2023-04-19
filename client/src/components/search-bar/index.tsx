@@ -6,7 +6,7 @@ import { ISingleAsset } from '../../common/types/assets';
 import { useAppSelector } from '../../utils/hook';
 import { useNavigate } from 'react-router-dom';
 
-const SearchBarComponent = () => {
+const SearchBarComponent: React.FC = (): JSX.Element => {
 	const [selectedItem, setSelectedItem] = useState<string | null>('');
 	const navigate = useNavigate();
 	const assetsArray: ISingleAsset[] = useAppSelector(
