@@ -1,8 +1,16 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { ISingleAsset } from '../../common/types/assets';
 import { useAppDispatch, useAppSelector } from '../../utils/hook';
-import { Avatar, Button, Grid, Typography } from '@mui/material';
+import {
+	Alert,
+	AlertColor,
+	Avatar,
+	Button,
+	Grid,
+	Snackbar,
+	Typography,
+} from '@mui/material';
 import FlexBetween from '../../components/flex-bettwen';
 import { useStyles } from './styles';
 import { createWatchListRecord } from '../../store/thunks/assets';
@@ -11,20 +19,35 @@ const SingleAssetPage: React.FC = (): JSX.Element => {
 	const navigate = useNavigate();
 	const { id } = useParams();
 	const { classes } = useStyles();
+	const [open, setOpen] = useState(false);
+	const [severity, setSeverity] = useState<AlertColor>('success');
 	const assetsArray: ISingleAsset[] = useAppSelector(
 		(state) => state.assets.assets,
 	);
 	const asset = assetsArray.find((element) => element.name === (id as string));
 	const dispatch = useAppDispatch();
 	const handleCreateRecord = () => {
-		const data = {
-			name: '',
-			assetId: '',
-		};
-		if (asset) {
-			data.name = asset.name;
-			data.assetId = asset.id;
-			dispatch(createWatchListRecord(data));
+		try {
+			const data = {
+				name: '',
+				assetId: '',
+			};
+			if (asset) {
+				data.name = asset.name;
+				data.assetId = asset.id;
+				dispatch(createWatchListRecord(data));
+				setSeverity('success');
+				setOpen(true);
+				setTimeout(() => {
+					setOpen(false);
+				}, 2000);
+			}
+		} catch (error) {
+			setSeverity('error');
+			setOpen(true);
+			setTimeout(() => {
+				setOpen(false);
+			}, 2000);
 		}
 	};
 	return (
@@ -112,6 +135,11 @@ const SingleAssetPage: React.FC = (): JSX.Element => {
 							Добавить в избранное
 						</Button>
 					</Grid>
+					<Snackbar open={open} autoHideDuration={6000}>
+						<Alert severity={severity} sx={{ width: '100%' }}>
+							Success!
+						</Alert>
+					</Snackbar>
 				</Grid>
 			)}
 		</>
