@@ -5,17 +5,26 @@ const token = sessionStorage.getItem('token');
 export const instance = axios.create({
 	baseURL: 'http://localhost:5000',
 	timeout: 1000,
-	headers: { 'X-Custom-Header': 'foobar' },
+	headers: {
+		'X-Custom-Header': 'foobar',
+		'Content-Type': 'application/json',
+	},
 });
 
 export const instanceAuth = axios.create({
 	baseURL: 'http://localhost:5000',
 	timeout: 1000,
-	headers: { 'X-Custom-Header': 'foobar', Authorization: `Bearer ${token}` },
+	headers: {
+		'X-Custom-Header': 'foobar',
+		Authorization: `Bearer ${token}`,
+		'Content-Type': 'application/json',
+	},
 });
 
 export const coinGeckoApi = axios.create({
 	baseURL: 'https://api.coingecko.com/api/v3',
 	timeout: 1000,
-	headers: { 'Access-Control-Allow-Origin': '*' },
+	headers: {
+		'Content-Type': 'application/json',
+	},
 });
