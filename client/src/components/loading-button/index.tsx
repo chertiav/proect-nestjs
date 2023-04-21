@@ -10,6 +10,7 @@ const AppLoadingButton = styled(LoadingButton)({
 	'&:hover': {
 		backgroundColor: '#4128FF',
 	},
+	color: '#fff',
 });
 
 export default AppLoadingButton;
