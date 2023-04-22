@@ -1,12 +1,13 @@
-import { Injectable } from '@nestjs/common';
+import { BadRequestException, Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/sequelize';
 import * as bcrypt from 'bcrypt';
 //==============================================================
 import { User } from './models/user.model';
 import { Watchlist } from '../watchlist/models/watchlist.model';
-import { CreateUserDTO, UpdateUserDTO } from './dto';
+import { CreateUserDTO, UpdatePasswordDTO, UpdateUserDTO } from './dto';
 import { TokenService } from '../token/token.service';
 import { AuthUserResponse } from '../auth/response';
+import { AppError } from 'src/common/constants/errors';
 
 @Injectable()
 export class UserService {
@@ -27,6 +28,20 @@ export class UserService {
 		try {
 			return this.userRepository.findOne({
 				where: { email },
+				include: {
+					model: Watchlist,
+					required: false,
+				},
+			});
+		} catch (error) {
+			throw new Error(error);
+		}
+	}
+
+	async findUserById(id: number): Promise<User> {
+		try {
+			return this.userRepository.findOne({
+				where: { id },
 				include: {
 					model: Watchlist,
 					required: false,
@@ -73,9 +88,22 @@ export class UserService {
 		}
 	}
 
-	async deleteUser(email: string): Promise<boolean> {
+	async updatePassword(id: number, dto: UpdatePasswordDTO): Promise<any> {
 		try {
-			await this.userRepository.destroy({ where: { email } });
+			const { password } = await this.findUserById(id);
+			const curentPassword = await bcrypt.compare(dto.oldPassword, password);
+			if (!curentPassword) return new BadRequestException(AppError.WRONG_DATA);
+			const newPassword = await this.hashPassword(dto.newPassword);
+			const data = { password: newPassword };
+			return await this.userRepository.update(data, { where: { id } });
+		} catch (error) {
+			throw new Error(error);
+		}
+	}
+
+	async deleteUser(id: number): Promise<boolean> {
+		try {
+			await this.userRepository.destroy({ where: { id } });
 			return true;
 		} catch (error) {
 			throw new Error(error);

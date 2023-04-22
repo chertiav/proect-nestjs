@@ -3,7 +3,7 @@ import { useAppDispatch, useAppSelector } from '../../utils/hook';
 import { useStyles } from './styles';
 import { Box, Grid, TextField } from '@mui/material';
 import AppLoadingButton from '../loading-button';
-import { getPublicUser, updateUserInfo } from '../../store/thunks/auth';
+import { updateUserInfo } from '../../store/thunks/auth';
 
 const SettingsPersonalInfoComponent = () => {
 	const [userInfo, setUserInfo] = useState({
@@ -19,12 +19,6 @@ const SettingsPersonalInfoComponent = () => {
 		const { firstName, userName, email } = user;
 		setUserInfo({ firstName, userName, email });
 	}, [user]);
-
-	useEffect(() => {
-		if (!user?.id) {
-			dispatch(getPublicUser());
-		}
-	}, [dispatch]);
 
 	const handleSubmit = (e: React.SyntheticEvent) => {
 		e.preventDefault();
