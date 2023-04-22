@@ -39,7 +39,7 @@ const options = {
 	},
 };
 
-const AreaChart = (props: IAreaChartProps) => {
+const AreaChart: React.FC<IAreaChartProps> = (props: IAreaChartProps) => {
 	const { data } = props;
 	const values = {
 		labels: data.map((element: number[]): string =>

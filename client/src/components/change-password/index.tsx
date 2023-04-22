@@ -6,7 +6,7 @@ import { useAppDispatch } from '../../utils/hook';
 import AuthAdornment from '../auth-adorment';
 import { updateUserPassword } from '../../store/thunks/auth';
 
-const ChangePasswordComponent = () => {
+const ChangePasswordComponent: React.FC = (): JSX.Element => {
 	const dispatch = useAppDispatch();
 	const [dataPassword, setDataPassword] = useState({
 		newPassword: '',

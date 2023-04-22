@@ -7,12 +7,14 @@ import FlexBetween from '../flex-bettwen';
 import { ITopbarProps } from '../../common/types/topbar';
 import ThemeSwitcherComponent from '../them-switcher';
 import SearchBarComponent from '../search-bar';
+import { useAppSelector } from '../../utils/hook';
 
 const TopBarComponent: React.FC<ITopbarProps> = (
 	props: ITopbarProps,
 ): JSX.Element => {
 	const { classes } = useStyles();
 	const { isOpen, setIsOpen, isNonMobile } = props;
+	const { user } = useAppSelector((state) => state.auth.user);
 
 	return (
 		<AppBar className={classes.root}>
@@ -25,7 +27,7 @@ const TopBarComponent: React.FC<ITopbarProps> = (
 								onClick={() => setIsOpen(!isOpen)}
 							/>
 							<Typography variant="h3">
-								Welcom {sessionStorage.getItem('name')}
+								Welcom {user?.firstName ? user.firstName : ''}
 							</Typography>
 						</FlexBetween>
 					</Grid>

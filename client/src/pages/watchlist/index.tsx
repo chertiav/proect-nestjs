@@ -6,7 +6,7 @@ import TopPriceComponent from '../../components/top-price';
 import { Grid, Typography } from '@mui/material';
 import { useStyles } from './styles';
 
-const WatchListPage = () => {
+const WatchListPage: React.FC = (): JSX.Element => {
 	const dispatch = useAppDispatch();
 	const { classes } = useStyles();
 	const {
