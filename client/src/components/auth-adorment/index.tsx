@@ -22,6 +22,7 @@ const AuthAdornment: React.FC<IPropsAuthAdornment> = (
 		<Box className={classes.root}>
 			<IconButton
 				aria-label="toggle password visibility"
+				disableRipple
 				onClick={handleClickShowPassword}
 			>
 				{showPassword[textField] ? <VisibilityOff /> : <Visibility />}

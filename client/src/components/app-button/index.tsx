@@ -10,6 +10,7 @@ const AppButton = styled(Button)({
 	'&:hover': {
 		backgroundColor: '#4128FF',
 	},
+	color: 'white'
 });
 
 export default AppButton;

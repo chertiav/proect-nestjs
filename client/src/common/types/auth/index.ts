@@ -5,9 +5,14 @@ interface IShowPassword {
 	confirmPassword: boolean;
 	[key: string]: boolean;
 }
+interface IShowPasswordChange {
+	newPassword: boolean;
+	oldPassword: boolean;
+	[key: string]: boolean;
+}
 export interface IPropsAuthAdornment {
-	showPassword: IShowPassword;
-	setShowPassword: (value: IShowPassword) => void;
+	showPassword: IShowPassword | IShowPasswordChange;
+	setShowPassword: Function;
 	textField: string;
 }
 export interface IPropsLogin<
