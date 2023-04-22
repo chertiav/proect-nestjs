@@ -9,8 +9,11 @@ import {
 	TableRow,
 } from '@mui/material';
 import { useStyles } from './styles';
+import { ISingleAsset, ItablePriceData } from '../../common/types/assets';
 
-const TopPriceComponent = (props: any) => {
+const TopPriceComponent: React.FC<ItablePriceData> = (
+	props: ItablePriceData,
+): JSX.Element => {
 	const { assets } = props;
 	const { classes } = useStyles();
 
@@ -26,7 +29,7 @@ const TopPriceComponent = (props: any) => {
 					</TableRow>
 				</TableHead>
 				<TableBody>
-					{assets.map((element: any) => (
+					{assets.map((element: ISingleAsset) => (
 						<TableRow
 							key={element.name}
 							sx={{ '&:last-child td, &:last-child th': { border: 0 } }}

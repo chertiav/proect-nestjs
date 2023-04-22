@@ -20,12 +20,14 @@ const SingleAssetPage: React.FC = (): JSX.Element => {
 	const { id } = useParams();
 	const { classes } = useStyles();
 	const [open, setOpen] = useState(false);
+	const [error, setError] = useState(false);
 	const [severity, setSeverity] = useState<AlertColor>('success');
 	const assetsArray: ISingleAsset[] = useAppSelector(
 		(state) => state.assets.assets,
 	);
 	const asset = assetsArray.find((element) => element.name === (id as string));
 	const dispatch = useAppDispatch();
+
 	const handleCreateRecord = () => {
 		try {
 			const data = {
@@ -36,6 +38,7 @@ const SingleAssetPage: React.FC = (): JSX.Element => {
 				data.name = asset.name;
 				data.assetId = asset.id;
 				dispatch(createWatchListRecord(data));
+				setError(false);
 				setSeverity('success');
 				setOpen(true);
 				setTimeout(() => {
@@ -43,6 +46,7 @@ const SingleAssetPage: React.FC = (): JSX.Element => {
 				}, 2000);
 			}
 		} catch (error) {
+			setError(true);
 			setSeverity('error');
 			setOpen(true);
 			setTimeout(() => {
@@ -137,7 +141,7 @@ const SingleAssetPage: React.FC = (): JSX.Element => {
 					</Grid>
 					<Snackbar open={open} autoHideDuration={6000}>
 						<Alert severity={severity} sx={{ width: '100%' }}>
-							Success!
+							{!error ? 'Success!' : 'Oooops!'}
 						</Alert>
 					</Snackbar>
 				</Grid>

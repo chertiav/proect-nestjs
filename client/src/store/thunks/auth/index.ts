@@ -2,7 +2,6 @@ import { createAsyncThunk } from '@reduxjs/toolkit';
 //==================================================
 import { ILoginData, IRegisterData } from '../../../common/types/auth';
 import { instance, instanceAuth } from '../../../utils/axios';
-import { string } from 'yup';
 
 export const loginUser = createAsyncThunk(
 	'auth/login',

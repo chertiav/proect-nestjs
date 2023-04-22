@@ -12,7 +12,7 @@ import { useAppDispatch } from '../../utils/hook';
 import { useNavigate } from 'react-router-dom';
 import { deleteUser } from '../../store/thunks/auth';
 
-const DeleteUserComponent = () => {
+const DeleteUserComponent: React.FC = (): JSX.Element => {
 	const [checked, setChecked] = useState(false);
 	const { classes } = useStyles();
 	const dispatch = useAppDispatch();

@@ -23,7 +23,7 @@ ChartJS.register(
 	Legend,
 );
 
-const LineChart = (props: IlinechartProps) => {
+const LineChart: React.FC<IlinechartProps> = (props: IlinechartProps) => {
 	const { data } = props;
 
 	const options = {

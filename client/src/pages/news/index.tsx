@@ -4,7 +4,7 @@ import { getNews } from '../../store/thunks/news/intex';
 import { useStyle } from './style';
 import { Box, Grid, Link, Typography } from '@mui/material';
 
-const NewsPage = () => {
+const NewsPage: React.FC = (): JSX.Element => {
 	const { news } = useAppSelector((state) => state.news);
 	const dispatch = useAppDispatch();
 	const { classes } = useStyle();

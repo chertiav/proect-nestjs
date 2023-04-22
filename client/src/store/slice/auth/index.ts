@@ -3,24 +3,7 @@ import { IAuthState } from '../../../common/types/auth';
 import { getPublicUser, loginUser, registerUser } from '../../thunks/auth';
 
 const initialState: IAuthState = {
-	user: {
-		id: null,
-		firstName: '',
-		userName: '',
-		email: '',
-		createdAt: '',
-		updatedAt: '',
-		watchlist: [
-			{
-				id: null,
-				name: '',
-				assetId: '',
-				createdAt: '',
-				updatedAt: '',
-				user: null,
-			},
-		],
-	},
+	user: [],
 	isLogged: false,
 	isLoading: false,
 };
@@ -36,7 +19,7 @@ export const authSlice = createSlice({
 			state.isLoading = true;
 		});
 		builder.addCase(loginUser.fulfilled, (state, action) => {
-			state.user = action.payload.user;
+			state.user = action.payload;
 			state.isLogged = true;
 			state.isLoading = false;
 		});
@@ -50,7 +33,7 @@ export const authSlice = createSlice({
 			state.isLoading = true;
 		});
 		builder.addCase(registerUser.fulfilled, (state, action) => {
-			state.user = action.payload.user;
+			state.user = action.payload;
 			state.isLogged = true;
 			state.isLoading = false;
 		});
@@ -59,7 +42,7 @@ export const authSlice = createSlice({
 			state.isLoading = false;
 		});
 		builder.addCase(getPublicUser.fulfilled, (state, action) => {
-			state.user = action.payload.user;
+			state.user = action.payload;
 		});
 	},
 });
