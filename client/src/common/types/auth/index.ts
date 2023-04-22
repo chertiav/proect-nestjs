@@ -38,7 +38,7 @@ export interface IPropsRegister<
 	errors: FieldErrors<TFieldValues>;
 }
 
-interface IPublicUser {
+export interface IPublicUser {
 	id: number | null;
 	firstName: string;
 	userName: string;
@@ -58,7 +58,10 @@ interface IWatchlist {
 }
 
 export interface IAuthState {
-	user: any;
+	user: {
+		user: IPublicUser;
+		token: string;
+	};
 	isLogged: boolean;
 	isLoading: boolean;
 }

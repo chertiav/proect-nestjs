@@ -35,6 +35,12 @@ const SideBarComponenet: React.FC<ISidebarProps> = (
 		setActive(pathname);
 	}, [pathname]);
 
+	const handleLogout = () => {
+		sessionStorage.removeItem('name');
+		sessionStorage.removeItem('token');
+		navigate('/login');
+	};
+
 	const renderNavMenu = () =>
 		navMenu.map((element): JSX.Element => {
 			return (
@@ -101,7 +107,10 @@ const SideBarComponenet: React.FC<ISidebarProps> = (
 								</ListItem>
 							)}
 							<ListItem>
-								<ListItemButton className={classes.navItem}>
+								<ListItemButton
+									className={classes.navItem}
+									onClick={handleLogout}
+								>
 									<ListItemIcon>
 										<LogoutOutlinedIcon />
 									</ListItemIcon>
