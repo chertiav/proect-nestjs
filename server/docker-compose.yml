@@ -1,21 +1,15 @@
 version: '3'
 
 services:
-  # postgresql:
-  #   image: postgres
-  #   container_name: server
-  #   ports:
-  #     - '5434:5432'
-  #   environment:
-  #     - POSTGRES_HOST=localhost
-  #     - POSTGRES_USER=lesson
-  #     - POSTGRES_PASSWORD=lesson
-  #     - POSTGRES_DATABASE=lesson
-  #   command: postgres
-  #   restart: always
-
-  redis:
-    image: redis:alpine3.14
-    container_name: redis
+  postgresql:
+    image: postgres
+    container_name: server
     ports:
-      - '6379-6379'
+      - '5432:5432'
+    environment:
+      - POSTGRES_HOST=localhost
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=qwerty
+      - POSTGRES_DATABASE=lesson
+    command: postgres
+    restart: always
